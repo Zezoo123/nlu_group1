@@ -1,92 +1,131 @@
 # Natural Language Inference (NLI) Project
 
-This project implements two different approaches for Natural Language Inference (NLI) task:
+This project implements Natural Language Inference (NLI) using a sophisticated hybrid approach that combines TF-IDF and SBERT features with Support Vector Machine (SVM) for robust sentence pair classification.
 
-1. **Transformer-based Model**: A supervised learning approach using BERT for fine-tuning
-2. **Reinforcement Learning Model**: A policy gradient approach using LSTM with attention
+## Project Overview
+
+This project is part of the COMP34812 coursework, focusing on Natural Language Inference tasks. The implementation leverages a hybrid approach that combines traditional text features (TF-IDF) with modern transformer-based embeddings (SBERT) to achieve robust sentence pair classification through SVM.
 
 ## Project Structure
 
 ```
 .
-├── data/
-│   └── training_data/
-│       └── NLI/
-│           ├── train.csv
-│           └── test.csv
-├── outputs/
-│   ├── transformer/
-│   └── reinforcement/
-├── src/
-│   └── nli/
-│       ├── transformer/
-│       │   ├── model.py
-│       │   ├── data.py
-│       │   └── train.py
-│       └── reinforcement/
-│           ├── model.py
-│           ├── data.py
-│           └── train.py
-├── run_transformer.py
-└── run_reinforcement.py
+├── data/                  # Main dataset directory
+├── CategoryA/            # Category A implementation
+│   ├── data/            # Category A specific data
+│   ├── all-MiniLM-L6-v2-local/  # Local SBERT model files
+│   ├── svm-SBERT.ipynb  # Hybrid SVM implementation with TF-IDF and SBERT
+│   ├── localSBERT.py    # SBERT implementation
+│   └── requirements.txt # Project dependencies
+├── CategoryC/            # Category C implementation
+└── README.md             # Project documentation
 ```
 
-## Setup
+## Implementation Details
 
-1. Create a virtual environment:
+### Hybrid SVM with Combined Features
+The implementation uses a sophisticated approach that combines multiple feature extraction methods with SVM:
+
+1. **Feature Extraction**:
+   - TF-IDF features: Captures term frequency and importance in the text
+   - SBERT embeddings: Provides semantic understanding through transformer-based embeddings
+   - Feature combination: Concatenates both feature sets for comprehensive text representation
+
+2. **Classification**:
+   - Support Vector Machine (SVM) classifier
+   - Optimized hyperparameters for the combined feature space
+   - Cross-validation for robust model evaluation
+
+3. **Key Features**:
+   - Multi-view learning through feature combination
+   - Enhanced semantic understanding through SBERT
+   - Statistical significance through TF-IDF
+   - Robust classification through SVM
+
+## Setup and Installation
+
+1. Create and activate a virtual environment:
 ```bash
+# Create virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
 ```
 
-2. Install dependencies:
+2. Install required packages:
 ```bash
+# Navigate to CategoryA directory
+cd CategoryA
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
 3. Download NLTK data:
 ```python
+# Open Python and run:
 import nltk
 nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+```
+
+4. Download the SBERT model:
+```python
+# Open Python and run:
+from sentence_transformers import SentenceTransformer
+model = SentenceTransformer('all-MiniLM-L6-v2')
 ```
 
 ## Usage
 
-### Training Models
+### Running the Notebook
 
-1. For the transformer model:
+1. Navigate to the CategoryA directory:
 ```bash
-python3 run_transformer.py
+cd CategoryA
 ```
 
-2. For the reinforcement learning model:
+2. Start Jupyter Notebook:
 ```bash
-python3 run_reinforcement.py
+jupyter notebook
 ```
 
-### Model Details
+3. Open `svm-SBERT.ipynb` in your browser
 
-#### Transformer Model
-- Uses BERT for fine-tuning
-- Supervised learning approach
-- Direct classification of sentence relationships
+4. Make sure your data is in the correct location:
+   - Place your dataset in the `CategoryA/data` directory
+   - Update the data path in the notebook if needed
 
-#### Reinforcement Learning Model
-- Uses LSTM with attention mechanism
-- Policy gradient approach
-- Learns through trial and error
-- Components:
-  - Policy network (actor): Makes decisions about sentence relationships
-  - Value network (critic): Estimates state values
-  - Attention mechanism: Focuses on relevant parts of sentences
+5. Run all cells in the notebook
 
-## Output
+Note: The first run might take some time as it downloads the SBERT model and processes the data.
 
-Both models will:
-1. Train on the training data
-2. Validate on a validation set
-3. Test on the test set
-4. Save the best model
-5. Print classification reports
+## Model Performance
 
-The outputs will be saved in the `outputs/` directory with timestamps. 
+The project evaluates the hybrid approach using standard metrics:
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+
+## Future Improvements
+
+1. Hyperparameter optimization for SVM
+2. Experimentation with different feature combinations
+3. Advanced feature fusion techniques
+4. Ensemble methods with different feature weights
+5. Integration of additional feature types
+
+## Contributing
+
+This project is developed as part of the COMP34812 coursework. For any questions or suggestions, please contact the team members.
+
+## License
+
+This project is part of academic coursework and should be used accordingly. 
