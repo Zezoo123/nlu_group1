@@ -25,7 +25,7 @@ This model performs natural language inference by predicting the relationship
 
 This model combines Sentence-BERT (MiniLM) embeddings with TF-IDF features to
       represent input text pairs. These combined features are used to train a logistic regression classifier
-      to identify relationships between premise-hypothesis pairs (entailment, contradiction, neutral).
+      to identify relationships between premise-hypothesis pairs
 
 - **Developed by:** Joseph Hayes & Zeyad Awadalla
 - **Language(s):** English
@@ -46,7 +46,7 @@ This model combines Sentence-BERT (MiniLM) embeddings with TF-IDF features to
 
 <!-- This is a short stub of information on the training data that was used, and documentation related to data pre-processing or additional filtering (if applicable). -->
 
-Natural language inference dataset from /kaggle/input/nlidata/train.csv.
+Data was provided to us by the lecturer
 
 ### Training Procedure
 
@@ -85,7 +85,7 @@ Natural language inference dataset from /kaggle/input/nlidata/train.csv.
 
 <!-- This should describe any evaluation data used (e.g., the development/validation set provided). -->
 
-Held-out dev set from /kaggle/input/nlidata/dev.csv containing text pairs and labels.
+Data was porvided to us by the lecturer
 
 #### Metrics
 
@@ -115,7 +115,7 @@ Held-out dev set from /kaggle/input/nlidata/dev.csv containing text pairs and la
 
       - RAM: 8–16 GB
       - GPU: Not required
-      - Storage: ~500MB for model + data
+      - Storage: ~200MB for model + data
     
 
 ### Software
