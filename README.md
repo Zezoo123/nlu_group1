@@ -1,131 +1,108 @@
-# Natural Language Inference (NLI) Project
+# Natural Language Inference (NLI) Task - Multiple Approaches
 
-This project implements Natural Language Inference (NLI) using a sophisticated hybrid approach that combines TF-IDF and SBERT features with Support Vector Machine (SVM) for robust sentence pair classification.
+This directory contains two different implementations for the Natural Language Inference (NLI) task. Each implementation takes a unique approach to solving the problem of determining the logical relationship between premise and hypothesis pairs.
 
-## Project Overview
-
-This project is part of the COMP34812 coursework, focusing on Natural Language Inference tasks. The implementation leverages a hybrid approach that combines traditional text features (TF-IDF) with modern transformer-based embeddings (SBERT) to achieve robust sentence pair classification through SVM.
-
-## Project Structure
+## Directory Structure
 
 ```
-.
-├── data/                  # Main dataset directory
-├── CategoryA/            # Category A implementation
-│   ├── data/            # Category A specific data
-│   ├── all-MiniLM-L6-v2-local/  # Local SBERT model files
-│   ├── svm-SBERT.ipynb  # Hybrid SVM implementation with TF-IDF and SBERT
-│   ├── localSBERT.py    # SBERT implementation
-│   └── requirements.txt # Project dependencies
-├── CategoryC/            # Category C implementation
-└── README.md             # Project documentation
+Deliverable2/
+├── CategoryA/           # SVM-BERT Hybrid Approach
+├── CategoryC/           # RoBERTa-based Approach
+└── test.csv            # Test dataset for evaluation
 ```
 
-## Implementation Details
+## Approach Comparison
 
-### Hybrid SVM with Combined Features
-The implementation uses a sophisticated approach that combines multiple feature extraction methods with SVM:
+### CategoryA: SVM-BERT Hybrid Approach
+- **Architecture**: Combines SBERT embeddings with TF-IDF features and SVM classifier
+- **Key Features**:
+  - Uses all-MiniLM-L6-v2 for sentence embeddings
+  - Incorporates TF-IDF features for enhanced text representation
+  - Leverages SVM for robust classification
+  - Lightweight and efficient inference
+- **Implementation**: 
+  - Training notebook: `svm-SBERT.ipynb`
+  - Demo script: `svm_demo.py`
+- **Output**: `Group_55_nli.csv`
 
-1. **Feature Extraction**:
-   - TF-IDF features: Captures term frequency and importance in the text
-   - SBERT embeddings: Provides semantic understanding through transformer-based embeddings
-   - Feature combination: Concatenates both feature sets for comprehensive text representation
-
-2. **Classification**:
-   - Support Vector Machine (SVM) classifier
-   - Optimized hyperparameters for the combined feature space
-   - Cross-validation for robust model evaluation
-
-3. **Key Features**:
-   - Multi-view learning through feature combination
-   - Enhanced semantic understanding through SBERT
-   - Statistical significance through TF-IDF
-   - Robust classification through SVM
-
-## Setup and Installation
-
-1. Create and activate a virtual environment:
-```bash
-# Create virtual environment
-python3 -m venv venv
-
-# Activate virtual environment
-# On macOS/Linux:
-source venv/bin/activate
-# On Windows:
-# venv\Scripts\activate
-```
-
-2. Install required packages:
-```bash
-# Navigate to CategoryA directory
-cd CategoryA
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-3. Download NLTK data:
-```python
-# Open Python and run:
-import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
-```
-
-4. Download the SBERT model:
-```python
-# Open Python and run:
-from sentence_transformers import SentenceTransformer
-model = SentenceTransformer('all-MiniLM-L6-v2')
-```
+### CategoryC: RoBERTa-based Approach
+- **Architecture**: Fine-tuned RoBERTa-large with custom classification head
+- **Key Features**:
+  - Custom data augmentation using WordNet synonyms
+  - Mixed precision training
+  - Layer-wise unfreezing (last 4 layers)
+  - Gradient checkpointing
+  - Advanced training techniques (OneCycleLR, Early stopping)
+- **Implementation**:
+  - Training notebook: `RoBERTa-notebook.ipynb`
+  - Demo script: `nli_demo.py`
+- **Performance**:
+  - Validation Accuracy: 87%
+  - Validation F1 Score: 88%
 
 ## Usage
 
-### Running the Notebook
-
-1. Navigate to the CategoryA directory:
+### Running CategoryA (SVM-BERT)
+1. Install dependencies:
 ```bash
 cd CategoryA
+pip install -r requirements.txt
 ```
-
-2. Start Jupyter Notebook:
+2. Run the demo script:
 ```bash
-jupyter notebook
+python svm_demo.py
 ```
 
-3. Open `svm-SBERT.ipynb` in your browser
+### Running CategoryC (RoBERTa)
+1. Install dependencies:
+```bash
+cd CategoryC
+pip install -r requirements.txt
+```
+2. Run the demo script:
+```bash
+python nli_demo.py
+```
 
-4. Make sure your data is in the correct location:
-   - Place your dataset in the `CategoryA/data` directory
-   - Update the data path in the notebook if needed
+## Model Citations
 
-5. Run all cells in the notebook
+### CategoryA Models
+1. **Sentence-BERT (SBERT)**
+   - Model: all-MiniLM-L6-v2
+   - Authors: Nils Reimers and Iryna Gurevych
+   - Paper: [Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks](https://arxiv.org/abs/1908.10084)
 
-Note: The first run might take some time as it downloads the SBERT model and processes the data.
+2. **TF-IDF Implementation**
+   - Paper: Question classification using support vector machines
+   - Authors: Dell Zhang and Wee Sun Lee
+   - Conference: ACM SIGIR 2003
+   - Pages: 26-32
 
-## Model Performance
+### CategoryC Models
+- **RoBERTa**
+  - Base Model: RoBERTa-large
+  - Custom implementation with advanced training techniques
+  - Enhanced with WordNet-based data augmentation
 
-The project evaluates the hybrid approach using standard metrics:
-- Accuracy
-- Precision
-- Recall
-- F1-Score
+## Hardware Requirements
 
-## Future Improvements
+### CategoryA (SVM-BERT)
+- Standard CPU machine
+- Minimum 8GB RAM
+- No specific GPU requirements
 
-1. Hyperparameter optimization for SVM
-2. Experimentation with different feature combinations
-3. Advanced feature fusion techniques
-4. Ensemble methods with different feature weights
-5. Integration of additional feature types
+### CategoryC (RoBERTa)
+- NVIDIA GPU with CUDA support
+- RAM: at least 16 GB
+- Storage: at least 2GB
+- CUDA toolkit
 
-## Contributing
+## Test Data
 
-This project is developed as part of the COMP34812 coursework. For any questions or suggestions, please contact the team members.
+Both implementations use the same test dataset (`test.csv`) located in the root directory. The file should contain:
+- 'premise' column: The premise text
+- 'hypothesis' column: The hypothesis text to be evaluated against the premise
 
-## License
+## Output Format
 
-This project is part of academic coursework and should be used accordingly. 
+Both implementations generate prediction files in CSV format containing the model's predictions for the NLI relationships between premise-hypothesis pairs. 
