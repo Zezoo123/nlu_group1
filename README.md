@@ -7,8 +7,7 @@ This directory contains two different implementations for the Natural Language I
 ```
 Deliverable2/
 ├── CategoryA/           # SVM-BERT Hybrid Approach
-├── CategoryC/           # RoBERTa-based Approach
-└── test.csv            # Test dataset for evaluation
+└── CategoryC/           # RoBERTa-based Approach
 ```
 
 ## Approach Comparison
